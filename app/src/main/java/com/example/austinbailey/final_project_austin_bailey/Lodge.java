@@ -9,10 +9,10 @@ public class Lodge {
     public double rating;
     public String address;
 
-    public Lodge(String latitude, String longitude, String name, String rating, String address) {
-        this.location = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+    public Lodge(Double latitude, Double longitude, String name, Double rating, String address) {
+        this.location = new LatLng(latitude, longitude);
         this.name = name;
-        this.rating = Double.parseDouble(rating);
+        this.rating = rating;
         this.address = address;
     }
 }

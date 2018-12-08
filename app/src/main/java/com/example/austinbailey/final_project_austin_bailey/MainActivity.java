@@ -22,25 +22,50 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    // URL to hit for places in Brighton, MA
     private String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=42.345800,-71.151250&radius=500&type=lodging&key=AIzaSyAXQ2fni7xMXDm-u9U9OmdLqd46beqDe18";
+    // Hold context
     final Context context = this;
+    // ArrayList for recycler view
+    private ArrayList<Lodge> lodgeList = new ArrayList<>();
+
 
     private class HttpTask extends AsyncTask<URL, Integer, Long> {
         public JSONObject results;
 
         protected Long doInBackground(URL... urls) {
-
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                     (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d("MSG", response.toString());
+
                             try {
                                 String results = response.get("results").toString();
-                                Log.i("MSG", results);
-                            } catch (JSONException e) {
+                                JSONArray lodges = new JSONArray(results);
+                                for (int i = 0; i < lodges.length(); i++) {
+                                    // Get location
+                                    JSONObject lodge = new JSONObject(lodges.get(i).toString());
+                                    JSONObject lodgeGeometry = new JSONObject(lodge.getString("geometry"));
+                                    JSONObject lodgeLocation = new JSONObject(lodgeGeometry.getString("location"));
+                                    Double lat = lodgeLocation.getDouble("lat");
+                                    Double lng = lodgeLocation.getDouble("lng");
 
+                                    // Get name
+                                    String name = lodge.getString("name");
+
+                                    // Get rating
+                                    Double rating = lodge.getDouble("rating");
+
+                                    // Get address
+                                    String address = lodge.getString("vicinity");
+
+                                    Lodge newLodge = new Lodge(lat, lng, name, rating, address);
+                                    lodgeList.add(newLodge);
+                                }
+                                Log.d("MSG", lodgeList.toString());
+                            } catch (JSONException e) {
+                                Log.i("MSG", "JSON Object exception");
                             }
                         }
                     }, new Response.ErrorListener() {
