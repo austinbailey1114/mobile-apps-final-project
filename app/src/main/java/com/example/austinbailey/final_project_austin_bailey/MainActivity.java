@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -28,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
     final Context context = this;
     // ArrayList for recycler view
     private ArrayList<Lodge> lodgeList = new ArrayList<>();
+    // Recycler View components
+    public RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
 
     private class HttpTask extends AsyncTask<URL, Integer, Long> {
@@ -67,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 Log.i("MSG", "JSON Object exception");
                             }
+                            recyclerView.setHasFixedSize(true);
+
+                            // use a linear layout manager
+                            mLayoutManager = new LinearLayoutManager(context);
+                            recyclerView.setLayoutManager(mLayoutManager);
+
+                            // specify an adapter (see also next example)
+                            mAdapter = new MyAdapter(lodgeList, context);
+                            recyclerView.setAdapter(mAdapter);
                         }
                     }, new Response.ErrorListener() {
 
@@ -86,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        recyclerView = findViewById(R.id.recycler_view);
         new HttpTask().execute();
     }
 }
