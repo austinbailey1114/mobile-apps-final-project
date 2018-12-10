@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 public class ViewLodgeActivity extends AppCompatActivity {
 
@@ -14,5 +15,13 @@ public class ViewLodgeActivity extends AppCompatActivity {
 
         Lodge lodge = (Lodge) getIntent().getSerializableExtra("lodge");
         Log.i("MSG", lodge.name);
+    }
+
+    public void map(View v) {
+
+    }
+
+    public void save(View v) {
+
     }
 }
