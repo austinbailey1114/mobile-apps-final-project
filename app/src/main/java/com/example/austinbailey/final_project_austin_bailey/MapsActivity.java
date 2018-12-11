@@ -39,10 +39,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        // Grab data sent from ViewLodgeActivity
         Intent intent = getIntent();
         double lat = intent.getDoubleExtra("lat", 0);
         double lng = intent.getDoubleExtra("lng", 0);
         String name = intent.getStringExtra("name");
+        // Set marker and camera
         LatLng location = new LatLng(lat, lng);
         mMap.addMarker(new MarkerOptions().position(location).title(name));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
