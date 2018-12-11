@@ -46,6 +46,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ViewLodgeActivity.class);
+                // Conditionally set if this is starting activity from FavoritesActivity (to determine save vs. delete button rendering)
+                if (mDataset.get(position).id != -1) {
+                    intent.putExtra("isFavorites", true);
+                } else {
+                    intent.putExtra("isFavorites", false);
+                }
                 intent.putExtra("lodge", mDataset.get(position));
                 context.startActivity(intent);
             }
