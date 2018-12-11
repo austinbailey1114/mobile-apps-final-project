@@ -1,8 +1,14 @@
 package com.example.austinbailey.final_project_austin_bailey;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,9 +31,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
-    // URL to hit for places in Brighton, MA
-    private String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=42.345800,-71.151250&radius=500&type=lodging&key=AIzaSyAXQ2fni7xMXDm-u9U9OmdLqd46beqDe18";
+    private String url;
     // Hold context
     final Context context = this;
     // ArrayList for recycler view
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 String results = response.get("results").toString();
                                 JSONArray lodges = new JSONArray(results);
+                                Log.d("MSG", lodges.toString());
                                 for (int i = 0; i < lodges.length(); i++) {
                                     // Get location
                                     JSONObject lodge = new JSONObject(lodges.get(i).toString());
@@ -104,6 +109,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recycler_view);
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            return;
+        }else{
+            // Write you code here if permission already given.
+        }
+
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
+
+        Log.i("LAT", Double.toString(latitude));
+
+        // Set to current location (will always be Apple in CA)
+        url =  "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + Double.toString(latitude) + "," + Double.toString(longitude) + "&radius=5000&type=lodging&key=AIzaSyAXQ2fni7xMXDm-u9U9OmdLqd46beqDe18";
+
         new HttpTask().execute();
     }
 
