@@ -6,6 +6,10 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class LodgeRoom {
+    public LodgeRoom() {
+
+    }
+
     public LodgeRoom(Lodge lodge) {
         this.name = lodge.name;
         this.lat = lodge.latitude;

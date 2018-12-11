@@ -1,6 +1,7 @@
 package com.example.austinbailey.final_project_austin_bailey;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void favorites(View v) {
-
+        Intent intent = new Intent(this, FavoritesActivity.class);
+        startActivity(intent);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.austinbailey.final_project_austin_bailey;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,6 +41,13 @@ public class ViewLodgeActivity extends AppCompatActivity {
     }
 
     public void save(View v) {
-
+        final AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "lodges").build();
+        final LodgeRoom lodgeRoom = new LodgeRoom(this.lodge);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                db.lodgeRoomDao().insertOne(lodgeRoom);
+            }
+        }) .start();
     }
 }
