@@ -109,13 +109,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recycler_view);
+
+        // Get location permissions
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             return;
-        }else{
-            // Write you code here if permission already given.
         }
 
+        // Grab location
         LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         double longitude = location.getLongitude();
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("LAT", Double.toString(latitude));
 
-        // Set to current location (will always be Apple in CA)
+        // Set to current location (will always be Apple in CA on emulator)
         url =  "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + Double.toString(latitude) + "," + Double.toString(longitude) + "&radius=5000&type=lodging&key=AIzaSyAXQ2fni7xMXDm-u9U9OmdLqd46beqDe18";
 
         new HttpTask().execute();

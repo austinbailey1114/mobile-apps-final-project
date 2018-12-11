@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ViewLodgeActivity extends AppCompatActivity {
 
@@ -60,6 +61,9 @@ public class ViewLodgeActivity extends AppCompatActivity {
                 db.lodgeRoomDao().insertOne(lodgeRoom);
             }
         }) .start();
+
+        Toast toast = Toast.makeText(this, "Hotel Added to Favorites", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public void delete(View v) {
@@ -74,5 +78,8 @@ public class ViewLodgeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         }) .start();
+
+        Toast toast = Toast.makeText(this, "Removed from Favorites", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
