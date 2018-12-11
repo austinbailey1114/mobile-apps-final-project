@@ -18,6 +18,10 @@ public class LodgeRoom {
         this.address = lodge.address;
     }
 
+    public Lodge copyToLodge() {
+        return new Lodge(this.lat, this.lng, this.name, this.rating, this.address);
+    }
+
     @PrimaryKey(autoGenerate = true)
     public int id;
 
