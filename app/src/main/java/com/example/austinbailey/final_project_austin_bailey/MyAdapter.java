@@ -41,7 +41,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         holder.titleTextView.setText(mDataset.get(position).name);
-        holder.ratingTextView.setText(Double.toString(mDataset.get(position).rating));
+        holder.ratingTextView.setText("Rating: " + Double.toString(mDataset.get(position).rating));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

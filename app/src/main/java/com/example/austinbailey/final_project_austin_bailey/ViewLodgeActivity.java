@@ -17,6 +17,8 @@ public class ViewLodgeActivity extends AppCompatActivity {
     private TextView name, rating, address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // todo TO OPEN IN GOOGLE MAPS BROWSER https://www.google.com/maps/place/?q=place_id:ChIJp4JiUCNP0xQR1JaSjpW_Hms
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_lodge);
 
