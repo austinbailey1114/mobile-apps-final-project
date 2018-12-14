@@ -3,6 +3,8 @@ package com.example.austinbailey.final_project_austin_bailey;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -111,5 +113,12 @@ public class ViewLodgeActivity extends AppCompatActivity {
 
         Toast toast = Toast.makeText(this, "Removed from Favorites", Toast.LENGTH_SHORT);
         toast.show();
+    }
+
+    public void browser(View v) {
+        String uri = "https://www.google.com/maps/search/?api=1&query=Google&query_place_id=" + this.lodge.googleID;
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(uri));
+        startActivity(intent);
     }
 }

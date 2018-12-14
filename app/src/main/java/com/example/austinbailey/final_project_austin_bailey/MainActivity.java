@@ -63,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
                                 for (int i = 0; i < lodges.length(); i++) {
                                     // Get location
                                     JSONObject lodge = new JSONObject(lodges.get(i).toString());
-                                    String id = lodge.getString("id");
-                                    Log.i("MSG", id);
+                                    String id = lodge.getString("place_id");
                                     JSONObject lodgeGeometry = new JSONObject(lodge.getString("geometry"));
                                     JSONObject lodgeLocation = new JSONObject(lodgeGeometry.getString("location"));
                                     Double lat = lodgeLocation.getDouble("lat");
@@ -82,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                                     Lodge newLodge = new Lodge(lat, lng, name, rating, address, id);
                                     lodgeList.add(newLodge);
                                 }
-                                Log.d("MSG", lodgeList.toString());
                             } catch (JSONException e) {
                                 Log.i("MSG", "JSON Object exception");
                             }
