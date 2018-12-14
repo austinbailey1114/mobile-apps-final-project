@@ -16,6 +16,7 @@ public class LodgeRoom {
         this.lng = lodge.longitude;
         this.rating = lodge.rating;
         this.address = lodge.address;
+        this.googleID = lodge.googleID;
     }
 
     public Lodge copyToLodge() {
@@ -39,4 +40,7 @@ public class LodgeRoom {
 
     @ColumnInfo(name = "address")
     public String address;
+
+    @ColumnInfo(name = "googleID")
+    public String googleID;
 }

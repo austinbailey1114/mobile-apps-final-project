@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
                                 for (int i = 0; i < lodges.length(); i++) {
                                     // Get location
                                     JSONObject lodge = new JSONObject(lodges.get(i).toString());
+                                    String id = lodge.getString("id");
+                                    Log.i("MSG", id);
                                     JSONObject lodgeGeometry = new JSONObject(lodge.getString("geometry"));
                                     JSONObject lodgeLocation = new JSONObject(lodgeGeometry.getString("location"));
                                     Double lat = lodgeLocation.getDouble("lat");
@@ -74,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                                     // Get address
                                     String address = lodge.getString("vicinity");
 
-                                    Lodge newLodge = new Lodge(lat, lng, name, rating, address);
+                                    Lodge newLodge = new Lodge(lat, lng, name, rating, address, id);
                                     lodgeList.add(newLodge);
                                 }
                                 Log.d("MSG", lodgeList.toString());
@@ -131,6 +136,31 @@ public class MainActivity extends AppCompatActivity {
         url =  "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + Double.toString(latitude) + "," + Double.toString(longitude) + "&radius=5000&type=lodging&key=AIzaSyAXQ2fni7xMXDm-u9U9OmdLqd46beqDe18";
 
         new HttpTask().execute();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.home:
+                intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.favorites:
+                intent = new Intent(this, FavoritesActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public void favorites(View v) {
