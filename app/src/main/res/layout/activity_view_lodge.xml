@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="256dp"
         android:text="TextView"
         android:textColor="#525f7f"
         android:textSize="22dp"
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         android:text="TextView"
         android:textColor="#525f7f"
         android:textSize="22dp"
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:text="TextView"
         android:textColor="#525f7f"
         android:textSize="22dp"
@@ -84,7 +84,7 @@
         app:layout_constraintHorizontal_bias="0.036"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/address"
-        app:layout_constraintVertical_bias="0.962" />
+        app:layout_constraintVertical_bias="0.84" />
 
     <Button
         android:id="@+id/delete"
@@ -108,19 +108,35 @@
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button"
+        android:onClick="browser"
+        android:text="More Info"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/button"
-        android:text="More Info"
-        android:textColor="#FFFFFF"
-        android:onClick="browser"
-        app:layout_constraintBottom_toTopOf="@+id/delete"
+        app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/address"
-        app:layout_constraintVertical_bias="0.26" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.869"
+        app:srcCompat="@drawable/common_full_open_on_phone" />
 
 </android.support.constraint.ConstraintLayout>

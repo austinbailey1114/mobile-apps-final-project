@@ -17,6 +17,7 @@ public class LodgeRoom {
         this.rating = lodge.rating;
         this.address = lodge.address;
         this.googleID = lodge.googleID;
+        this.photoReference = lodge.photoReference;
     }
 
     public Lodge copyToLodge() {
@@ -43,4 +44,7 @@ public class LodgeRoom {
 
     @ColumnInfo(name = "googleID")
     public String googleID;
+
+    @ColumnInfo(name = "photoReference")
+    public String photoReference;
 }

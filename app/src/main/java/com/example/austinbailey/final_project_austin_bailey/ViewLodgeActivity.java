@@ -3,6 +3,9 @@ package com.example.austinbailey.final_project_austin_bailey;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +16,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.InputStream;
+import java.net.URL;
 
 public class ViewLodgeActivity extends AppCompatActivity {
 
@@ -22,13 +29,34 @@ public class ViewLodgeActivity extends AppCompatActivity {
     private TextView name, rating, address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        // todo TO OPEN IN GOOGLE MAPS BROWSER https://www.google.com/maps/place/?q=place_id:ChIJp4JiUCNP0xQR1JaSjpW_Hms
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_lodge);
 
         // Get the lodge selected in the recycler view
         this.lodge = (Lodge) getIntent().getSerializableExtra("lodge");
+        final Lodge lodgeCopy = lodge;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL("https://maps.googleapis.com/maps/api/place/photo?maxwidth=650&photoreference=" + lodgeCopy.photoReference + "&key=AIzaSyAXQ2fni7xMXDm-u9U9OmdLqd46beqDe18");
+                    final Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    Log.i("MSG", url.toString());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView imageView = findViewById(R.id.imageView);
+                            imageView.setImageBitmap(bmp);
+                        }
+                    });
+
+                } catch (Exception e) {
+                    Log.i("MSG", e.toString());
+                }
+            }
+        }).start();
+
         boolean isFavorites = getIntent().getBooleanExtra("isFavorites", false);
         Button button;
         // Hide the button depending on if this was loaded from Favorites
@@ -48,6 +76,8 @@ public class ViewLodgeActivity extends AppCompatActivity {
         this.name.setText(this.lodge.name);
         this.rating.setText("Rating: " + Double.toString(this.lodge.rating));
         this.address.setText(this.lodge.address);
+
+        Log.i("MSG", lodge.photoReference);
     }
 
     @Override

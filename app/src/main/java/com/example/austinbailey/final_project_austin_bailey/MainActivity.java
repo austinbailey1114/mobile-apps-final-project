@@ -63,11 +63,19 @@ public class MainActivity extends AppCompatActivity {
                                 for (int i = 0; i < lodges.length(); i++) {
                                     // Get location
                                     JSONObject lodge = new JSONObject(lodges.get(i).toString());
-                                    String id = lodge.getString("place_id");
                                     JSONObject lodgeGeometry = new JSONObject(lodge.getString("geometry"));
                                     JSONObject lodgeLocation = new JSONObject(lodgeGeometry.getString("location"));
                                     Double lat = lodgeLocation.getDouble("lat");
                                     Double lng = lodgeLocation.getDouble("lng");
+
+                                    // Get photo reference
+                                    String photoReference = null;
+                                    if (lodge.has("photos")) {
+                                        JSONObject photos = lodge.getJSONArray("photos").getJSONObject(0);
+                                        photoReference = photos.getString("photo_reference");
+                                    }
+                                    // Get google maps ID
+                                    String id = lodge.getString("place_id");
 
                                     // Get name
                                     String name = lodge.getString("name");
@@ -78,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                                     // Get address
                                     String address = lodge.getString("vicinity");
 
-                                    Lodge newLodge = new Lodge(lat, lng, name, rating, address, id);
+                                    Lodge newLodge = new Lodge(lat, lng, name, rating, address, id, photoReference);
                                     lodgeList.add(newLodge);
                                 }
                             } catch (JSONException e) {
